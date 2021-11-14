@@ -28,11 +28,11 @@ public class LongMapImpl<V> implements LongMap<V> {
         }
         Bucket<V> bucket = getBucket(key);
         if (!bucket.isBucketContainsKey(key)) {
-            KeyValue<V> keyValueNode = new KeyValue<>(key, value);
+            KeyValueNode<V> keyValueNode = new KeyValueNode<>(key, value);
             bucket.addItem(keyValueNode);
             numberItems++;
         } else {
-            KeyValue<V> node = bucket.getItem(key);
+            KeyValueNode<V> node = bucket.getItem(key);
             node.setValue(value);
         }
         return value;
@@ -40,14 +40,14 @@ public class LongMapImpl<V> implements LongMap<V> {
 
     public V get(long key) {
         Bucket<V> bucket = getBucket(key);
-        KeyValue<V> keyValue = bucket.getItem(key);
-        if (keyValue == null) return null;
-        return keyValue.getValue();
+        KeyValueNode<V> keyValueNode = bucket.getItem(key);
+        if (keyValueNode == null) return null;
+        return keyValueNode.getValue();
     }
 
     public V remove(long key) {
         Bucket<V> bucket = getBucket(key);
-        KeyValue<V> item = bucket.removeItem(key);
+        KeyValueNode<V> item = bucket.removeItem(key);
         if (item != null) {
             numberItems--;
             return item.getValue();
@@ -132,7 +132,7 @@ public class LongMapImpl<V> implements LongMap<V> {
 
     ;
 
-    private void moveKeyValuePairToNewBuckets(Bucket<V>[] newBucketsArray, KeyValue<V> pair) {
+    private void moveKeyValuePairToNewBuckets(Bucket<V>[] newBucketsArray, KeyValueNode<V> pair) {
         Bucket<V> bucket = getBucket(pair.getKey(), newBucketsArray);
         bucket.addItem(pair);
     }
