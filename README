@@ -1,0 +1,7 @@
+Finish development of class LongMapImpl, which implements a map with keys of type long. It has to be a hash table (like HashMap). 
+
+Requirements:
+
+It should not use any known Map implementations;
+It should use as less memory as possible and have adequate performance;
+The main aim is to see your codestyle and teststyle
